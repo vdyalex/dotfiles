@@ -1,4 +1,5 @@
-#!/bin/zsh
+#!/usr/bin/env bash
+
 VSCODE_DIR="$HOME/Library/Application Support/Code/User"
 mkdir -p "$VSCODE_DIR"
 

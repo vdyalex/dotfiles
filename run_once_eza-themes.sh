@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
 mkdir -p ~/.config/eza/light ~/.config/eza/dark
 

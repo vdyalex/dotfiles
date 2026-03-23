@@ -1,5 +1,6 @@
-#!/usr/bin/env zsh
-# .macos — MacOS system preferences restore script
+#!/usr/bin/env bash
+
+# MacOS system preferences restore script
 # Run:   zsh .macos
 # After: log out and back in, or reboot, for all settings to apply.
 
@@ -966,6 +967,26 @@ sudo pmset -a standbydelay 900
 # sleeping, ensuring data-at-rest protection even if the battery dies during standby
 echo "    → Setting hibernate mode (sleep + encrypted hibernate / 25)"
 sudo pmset -a hibernatemode 25
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# FONTS
+# ══════════════════════════════════════════════════════════════════════════════
+
+echo "  [Fonts]"
+
+_fonts_dir="$HOME/Library/Fonts"
+_fonts_archive="$(dirname "$0")/fonts.tar.gz"
+
+if [[ ! -f "$_fonts_archive" ]]; then
+  echo "    ⚠  fonts.tar.gz not found — skipping font installation"
+  echo "       Expected at: ${_fonts_archive}"
+else
+  echo "    → Decompressing fonts.tar.gz into ~/Library/Fonts"
+  mkdir -p "$_fonts_dir"
+  tar -xzvf "$_fonts_archive" -C "$_fonts_dir"
+  echo "    ✓  Fonts installed"
+fi
 
 
 # ══════════════════════════════════════════════════════════════════════════════

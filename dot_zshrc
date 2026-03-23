@@ -89,6 +89,10 @@ alias lr='eza -lRa -L 2 --git --no-quotes'
 alias lt='eza -lTa -L 2 --git --no-quotes'
 alias ld='eza -lda --git --no-quotes .*'
 
+# ── tar/gzip aliases ──────────────────────────────────────────────────────
+alias compress='tar -czvf'    # compress <archive.tar.gz> <file/dir>
+alias decompress='tar -xzvf'  # decompress <archive.tar.gz>
+
 # ── history-substring-search ──────────────────────────────────────────────────────────────────────
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
