@@ -79,7 +79,7 @@ export ENHANCD_COMMAND="cd"
 export ENHANCD_DOT_SHOW_FULLPATH=1
 
 # ── eza (replacement for ls) ──────────────────────────────────────────────────────────────────────
-export EZA_CONFIG_DIR="$HOME/.config/eza/$UI_THEME"
+export EZA_CONFIG_DIR="$HOME/.config/eza/themes/$UI_THEME"
 
 alias l='eza'
 alias ls='eza'

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-mkdir -p ~/.config/eza/light ~/.config/eza/dark
+mkdir -p ~/.config/eza/themes/light ~/.config/eza/themes/dark
 
-curl -so ~/.config/eza/light/theme.yml \
+curl -so ~/.config/eza/themes/light/theme.yml \
   https://raw.githubusercontent.com/eza-community/eza-themes/main/themes/catppuccin-latte.yml
 
-curl -so ~/.config/eza/dark/theme.yml \
+curl -so ~/.config/eza/themes/dark/theme.yml \
   https://raw.githubusercontent.com/eza-community/eza-themes/main/themes/catppuccin-mocha.yml

@@ -976,7 +976,7 @@ sudo pmset -a hibernatemode 25
 echo "  [Fonts]"
 
 _fonts_dir="$HOME/Library/Fonts"
-_fonts_archive="$(dirname "$0")/fonts.tar.gz"
+_fonts_archive="${CHEZMOI_SOURCE_DIR}/fonts.tar.gz"
 
 if [[ ! -f "$_fonts_archive" ]]; then
   echo "    ⚠  fonts.tar.gz not found — skipping font installation"
@@ -1000,7 +1000,7 @@ echo "  [Safari]"
 # access are both blocked. A configuration profile covers the manageable keys;
 # the remainder must be set manually (see checklist at the end of this script).
 # The profile must be in the same directory as this script.
-_safari_profile="$(dirname "$0")/_safari.mobileconfig"
+_safari_profile="${CHEZMOI_SOURCE_DIR}/safari.mobileconfig"
 
 if [[ -f "$_safari_profile" ]]; then
   echo "    → Installing Safari configuration profile"
@@ -1011,7 +1011,7 @@ if [[ -f "$_safari_profile" ]]; then
   open "x-apple.systempreferences:com.apple.preferences.configurationprofiles"
   echo "    ⚠  Approve the profile in System Settings → General → Device Management"
 else
-  echo "    ⚠  _safari.mobileconfig not found — skipping Safari settings"
+  echo "    ⚠  safari.mobileconfig not found — skipping Safari settings..."
   echo "       Expected at: ${_safari_profile}"
 fi
 

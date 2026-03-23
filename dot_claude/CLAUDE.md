@@ -64,7 +64,7 @@ Docstring every top-level function/method/class: purpose, constraints, edge case
 7. Include or update tests.
 8. Include or update documentation (docstrings, README.md).
 9. Maintain setup alignment (tests, checks).
-10. Commit without Claude footer. Use conventional commits. Always sign commits.
+10. Commit with conventional commits. Always sign commits. Never add Co-Authored-By or Claude footer to commits.
 
 ## Project setup
 

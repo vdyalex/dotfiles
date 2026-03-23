@@ -1,14 +1,26 @@
+# Plugin manager for zsh, inspired by antigen and antibody
 brew "antidote"
+# Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
+# Modern, maintained replacement for ls
 brew "eza"
+# Simple, fast and user-friendly alternative to find
 brew "fd"
+# Command-line fuzzy finder written in Go
 brew "fzf"
+# Syntax-highlighting pager for git and diff output
 brew "git-delta"
+# GNU Privacy Guard (OpenPGP)
 brew "gnupg"
+# Improved top (interactive process viewer)
 brew "htop"
+# Internet file retriever
 brew "wget"
+# Terminal-based AI coding assistant
 cask "claude-code"
+# Open-source code editor
 cask "visual-studio-code"
 vscode "adpyke.codesnap"
 vscode "alefragnani.bookmarks"
