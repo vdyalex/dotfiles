@@ -1,0 +1,152 @@
+# ── powerlevel10k instant prompt ──────────────────────────────────────────────────────────────────
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# ── homebrew ──────────────────────────────────────────────────────────────────────────────────────
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# ── completions ───────────────────────────────────────────────────────────────────────────────────
+autoload -Uz compinit
+compinit
+COMPLETION_WAITING_DOTS="true"
+
+# ── antidote ──────────────────────────────────────────────────────────────────────────────────────
+source "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh"
+antidote load
+
+# ── history ───────────────────────────────────────────────────────────────────────────────────────
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt SHARE_HISTORY
+
+# ── setup options ─────────────────────────────────────────────────────────────────────────────────
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
+setopt nocorrectall;
+
+export GPG_TTY=$(tty)
+
+# Fix homebrew and gettext: https://github.com/Homebrew/homebrew-core/issues/41139
+export LC_ALL=en_US.UTF-8
+
+# Disable Objective-C fork safety to avoid crashes with certain libraries
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# ── theme detection ───────────────────────────────────────────────────────────────────────────────
+_get_system_theme() {
+  local file
+  file="$HOME/Library/Preferences/.GlobalPreferences.plist"
+  if /usr/libexec/PlistBuddy -c "Print :AppleInterfaceStyle" "$file" &>/dev/null; then
+    echo "dark"
+  else
+    echo "light"
+  fi
+}
+
+# set once at shell startup
+export UI_THEME="$(_get_system_theme)"
+
+# ── theme change watcher ──────────────────────────────────────────────────────────────────────────
+_theme_sync() {
+  local current
+  current="$(_get_system_theme)"
+  if [[ "$current" != "$UI_THEME" ]]; then
+    exec zsh
+  fi
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _theme_sync
+
+# ── delta theme sync ──────────────────────────────────────────────────────────────────────────────
+_delta_theme_sync() {
+  if [[ "$UI_THEME" == "light" ]]; then
+    git config --global delta.features "catppuccin-latte"
+  else
+    git config --global delta.features "catppuccin-mocha"
+  fi
+}
+_delta_theme_sync
+
+# ── enhancd (replacement for cd) ──────────────────────────────────────────────────────────────────
+export ENHANCD_FILTER="fzf --preview 'eza --tree --level 1 {}' --reverse --ansi"
+export ENHANCD_COMMAND="cd"
+export ENHANCD_DOT_SHOW_FULLPATH=1
+
+# ── eza (replacement for ls) ──────────────────────────────────────────────────────────────────────
+export EZA_CONFIG_DIR="$HOME/.config/eza/$UI_THEME"
+
+alias l='eza'
+alias ls='eza'
+alias ll='eza -l --git --no-quotes'
+alias la='eza -la --git --no-quotes'
+alias lr='eza -lRa -L 2 --git --no-quotes'
+alias lt='eza -lTa -L 2 --git --no-quotes'
+alias ld='eza -lda --git --no-quotes .*'
+
+# ── history-substring-search ──────────────────────────────────────────────────────────────────────
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# ── fzf (fuzzy search) ────────────────────────────────────────────────────────────────────────────
+source <(fzf --zsh)
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+export FZF_CTRL_T_OPTS='--preview "bat --color=always --line-range=:50 {}"'
+
+# ── bat (replacement for cat) ─────────────────────────────────────────────────────────────────────
+export PAGER='bat --paging=always'
+export GIT_PAGER='delta'
+export MANPAGER="sh -c 'col -bx | bat -l man --paging=always'"
+
+# ── aliases ───────────────────────────────────────────────────────────────────────────────────────
+export BAT_THEME_LIGHT="Catppuccin Latte"
+export BAT_THEME_DARK="Catppuccin Mocha"
+alias clear="clear && printf '\e[3J'"
+
+# tools
+alias f='fd'
+alias c='bat'
+alias grep='grep --color=auto'
+alias h='history'
+alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
+
+# zsh
+alias reload='exec zsh'
+alias zshrc='${=EDITOR} ${ZDOTDIR:-$HOME}/.zshrc' # Quick access to the .zshrc file
+
+# cd
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias -- -='cd -'
+for index ({1..9}) alias "$index"="cd -${index}"; unset index
+
+# cp / mv / rm / mkdir / rmdir
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+alias md='mkdir -p'
+alias rd='rmdir'
+
+# cli head / tail shortcuts
+alias -g H='| head'
+alias -g T='| tail'
+alias -g G='| grep'
+alias -g L="| less"
+alias -g M="| most"
+alias -g LL="2>&1 | less"
+alias -g CA="2>&1 | cat -A"
+alias -g NE="2> /dev/null"
+alias -g NUL="> /dev/null 2>&1"
+
+# ── powerlevel10k (always last) ───────────────────────────────────────────────────────────────────
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
