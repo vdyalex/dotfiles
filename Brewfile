@@ -18,6 +18,8 @@ brew "ghostscript"
 brew "git-delta"
 # GNU Privacy Guard (OpenPGP)
 brew "gnupg"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
 # Improved top (interactive process viewer)
 brew "htop"
 # Internet file retriever
