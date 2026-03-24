@@ -13,7 +13,7 @@ set -euo pipefail
 
 echo ""
 echo "  ┌─────────────────────────────────────────────┐"
-echo "  │        MacOS system preferences setup       │"
+echo "  │        MacOS system preferences setup           │"
 echo "  └─────────────────────────────────────────────┘"
 echo ""
 
@@ -176,6 +176,7 @@ echo "  [Appearance]"
 
 # Auto appearance mode switches between Light and Dark following the system
 # sunrise/sunset schedule — delete removes any pinned style before enabling auto-switch
+echo "    → Removing pinned appearance style"
 defaults delete NSGlobalDomain AppleInterfaceStyle 2>/dev/null || true
 echo "    → Enabling automatic appearance mode (sunrise/sunset)"
 defaults write NSGlobalDomain AppleInterfaceStyleSwitchesAutomatically -bool true
@@ -187,11 +188,13 @@ defaults write NSGlobalDomain AppleIconThemeName -string "Dark"
 
 # Small sidebar icons reduce visual clutter in Finder and sidebars
 # without sacrificing usability
+# NSTableViewDefaultSizeMode: 1=small, 2=medium, 3=large
 echo "    → Setting sidebar icon size (small / 1)"
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
 
 # Jump-to-position scroll bar click is more efficient than the default
 # page-scroll behaviour — clicking anywhere on the bar jumps directly there
+# AppleScrollerPagingBehavior: 0=jump to next page, 1=jump to clicked position
 echo "    → Setting scroll bar click behaviour (jump to position / 1)"
 defaults write NSGlobalDomain AppleScrollerPagingBehavior -int 1
 
@@ -206,6 +209,7 @@ echo "  [Apple Intelligence & Siri]"
 # prevents continuous microphone access, reducing passive audio exposure.
 # Hiding the status menu icon and disabling the voice trigger enforce this
 # at both the UI and daemon levels.
+# Siri Data Sharing Opt-In Status: 1=opted in, 2=opted out
 echo "    → Disabling Siri data sharing opt-in (2)"
 defaults write com.apple.assistant.support "Siri Data Sharing Opt-In Status" -int 2
 echo "    → Hiding Siri status menu icon (false)"
@@ -240,11 +244,15 @@ echo "    → Setting Dock magnification size (80)"
 defaults write com.apple.dock largesize -int 80
 
 # Scale effect is visually lighter and faster than the default Genie animation
+# mineffect: "genie"=genie, "scale"=scale, "suck"=suck
 echo "    → Setting window minimize animation (scale)"
 defaults write com.apple.dock mineffect -string "scale"
 
 # Fill (maximize) on title bar double-click maps the familiar MacOS zoom behaviour
 # to the expected Windows-style full-screen expand
+# AppleActionOnDoubleClick:
+#   "Minimize"=minimize window, "Maximize"=maximize window,
+#   "Fill"=fill screen, "None"=do nothing
 echo "    → Setting title bar double-click action (Fill)"
 defaults write NSGlobalDomain AppleActionOnDoubleClick -string "Fill"
 
@@ -283,6 +291,7 @@ defaults write com.apple.dock show-recents -bool false
 
 # "Never" prevents MacOS from automatically switching documents to a tab view,
 # preserving explicit window management
+# AppleWindowTabbingMode: "manual"=only when requested, "always"=always prefer tabs, "never"=never use tabs
 echo "    → Setting window tabbing mode (never)"
 defaults write NSGlobalDomain AppleWindowTabbingMode -string "never"
 
@@ -412,6 +421,7 @@ if [[ -n "$_user_uuid" ]]; then
   _pb() { sudo /usr/libexec/PlistBuddy -c "$1" "$_cb_plist" 2>/dev/null || true; }
 
   echo "    → Setting Night Shift mode (Sunset to Sunrise / 1)"
+  # BlueReductionMode: 0=off, 1=sunset to sunrise (auto), 2=custom schedule
   _pb "Set  :${_cb_key}:CBBlueReductionStatus:BlueReductionMode 1"   || \
   _pb "Add  :${_cb_key}:CBBlueReductionStatus:BlueReductionMode integer 1"
 
@@ -441,8 +451,9 @@ echo "  [Menu Bar]"
 # Keeping the menu bar visible in windowed mode while hiding it in full screen
 # preserves quick access to menu items during normal use without consuming
 # screen space in full-screen apps
-echo "    → Setting menu bar visibility (shown in windowed, hidden in full screen)"
+echo "    → Showing menu bar in windowed mode (false)"
 defaults write NSGlobalDomain _HIHideMenuBar -bool false
+echo "    → Hiding menu bar in full screen (false)"
 defaults write com.apple.NSGlobalDomain AppleMenuBarVisibleInFullscreen -bool false
 
 # Disabling the background blur keeps the menu bar visually minimal
@@ -457,6 +468,7 @@ defaults write com.apple.menuextra.clock IsAnalog -bool true
 
 # Hiding the date keeps the menu bar compact — the date is visible
 # in Notification Center and Calendar at a glance
+# ShowDate: 0=hidden, 1=always shown, 2=shown when space allows
 echo "    → Hiding date in menu bar clock (0)"
 defaults write com.apple.menuextra.clock ShowDate -int 0
 
@@ -504,6 +516,7 @@ defaults write com.apple.controlcenter "NSStatusItem Visible Display" -bool fals
 # Low Power or High Power mode is active, which affects performance and battery
 echo "    → Showing Battery Energy Mode indicator in menu bar always (true)"
 defaults write com.apple.controlcenter "NSStatusItem Visible BatteryShowEnergyMode" -bool true
+# ShowEnergyMode: 0=hidden, 1=icon only, 2=icon and label
 echo "    → Setting battery energy mode display style (2)"
 defaults write com.apple.menuextra.battery ShowEnergyMode -int 2
 
@@ -552,11 +565,13 @@ echo "  [Battery]"
 
 # High Power mode on AC adapter maximises performance when battery life is
 # not a concern and the machine is plugged in
+# powermode: 0=low power, 1=automatic, 2=high power
 echo "    → Setting power adapter energy mode (High Power / 2)"
 sudo pmset -c powermode 2
 
 # Low Power mode on battery extends runtime by reducing CPU and GPU performance
 # when away from a charger
+# powermode: 0=low power, 1=automatic, 2=high power
 echo "    → Setting battery energy mode (Low Power / 1)"
 sudo pmset -b powermode 1
 
@@ -650,8 +665,10 @@ echo "  [Spotlight]"
 
 # Disabling search query sharing prevents typed queries from being sent to
 # Apple's servers to "improve" Spotlight results — queries remain local
+# Search Queries Data Sharing Status: 1=opted in, 2=opted out
 echo "    → Disabling Spotlight search query sharing with Apple (2)"
 defaults write com.apple.assistant.support "Search Queries Data Sharing Status" -int 2
+# Spotlight Data Sharing Opt-In Status: 1=opted in, 2=opted out
 echo "    → Disabling Spotlight data sharing opt-in (2)"
 defaults write com.apple.Spotlight "Spotlight Data Sharing Opt-In Status" -int 2
 
@@ -662,6 +679,7 @@ defaults write com.apple.Spotlight ResultsFromClipboardEnabled -bool true
 
 # 8-hour clipboard retention balances convenience with privacy — the
 # clipboard history expires within a working session
+# ClipboardHistoryDuration: seconds (3600=1h, 28800=8h, 86400=24h)
 echo "    → Setting Spotlight clipboard history duration (8 hours / 28800)"
 defaults write com.apple.Spotlight ClipboardHistoryDuration -int 28800
 
@@ -674,12 +692,15 @@ echo "  [Screen Saver]"
 
 # 5-minute idle timeout before the screen saver engages reduces the window
 # during which an unattended unlocked screen is visible
+# idleTime: seconds (0=never, 300=5min, 600=10min)
 echo "    → Setting screen saver idle time (5 minutes / 300)"
 defaults write com.apple.screensaver idleTime -int 300
 
 # Requiring a password the instant the screen saver activates or the display
 # sleeps closes the grace-period window — without this, a brief wake requires
 # no password even with FileVault enabled
+# askForPassword: 0=never, 1=require password on wake
+# askForPasswordDelay: seconds before password required after wake (0=immediately)
 echo "    → Requiring password immediately on screen saver / sleep wake"
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 0
@@ -693,6 +714,7 @@ echo "  [Notifications]"
 
 # Suppressing notifications during mirroring or screen sharing prevents
 # sensitive alerts from appearing on projected or shared displays
+# dnd_mirroring: 0=allow notifications, 1=enabled (legacy), 2=suppress notifications
 echo "    → Disabling notifications when display is mirrored/shared (2)"
 defaults write com.apple.ncprefs dnd_mirroring -int 2
 
@@ -710,6 +732,7 @@ defaults write NSGlobalDomain com.apple.sound.beep.sound -string "/System/Librar
 
 # Disabling the volume-change feedback pop removes the audible click that plays
 # when adjusting volume via the keyboard, which can be disruptive in quiet settings
+# com.apple.sound.beep.feedback: 0=silent, 1=play feedback sound on volume change
 echo "    → Disabling volume change feedback sound (0)"
 defaults write NSGlobalDomain com.apple.sound.beep.feedback -int 0
 
@@ -756,6 +779,7 @@ sudo pmset -c displaysleep 10
 
 # Disabling password hints removes potential clues to the password that could
 # aid a shoulder-surfer or physical attacker at the login screen
+# RetriesUntilHint: failed attempts before hint shown (0=never show hint)
 echo "    → Disabling password hints at login screen (0)"
 sudo defaults write /Library/Preferences/com.apple.loginwindow RetriesUntilHint -int 0
 
@@ -770,6 +794,7 @@ echo "  [Privacy & Security]"
 # standard users or malicious apps from silently modifying security settings
 echo "    → Requiring admin password for system preferences (authenticate-admin)"
 sudo security authorizationdb write system.preferences authenticate-admin 2>/dev/null || true
+echo "    → Enforcing admin requirement for preference panes (true)"
 sudo defaults write /Library/Preferences/com.apple.security requireAdminForPref -bool true
 
 # Disabling personalized Apple ads stops Apple from building an ad profile
@@ -790,6 +815,7 @@ echo "  [Analytics & Improvements]"
 # diagnostics, usage patterns, and hardware identifiers to Apple's servers
 echo "    → Disabling Mac analytics auto-submit (false)"
 defaults write com.apple.DiagnosticReportingService AutoSubmit -bool false
+echo "    → Disabling diagnostic info auto-submit (false)"
 defaults write com.apple.SubmitDiagInfo AutoSubmit -bool false
 
 # Disabling Improve Assistive Voice Features stops Voice Control audio
@@ -843,27 +869,33 @@ echo "  [Keyboard]"
 
 # Fastest key repeat rate (2) eliminates perceptible pause between repeated
 # keystrokes, which is critical for efficient text editing and navigation
+# KeyRepeat: 15ms units (2=30ms fastest, 6=90ms default, 300=slowest)
 echo "    → Setting key repeat rate (2)"
 defaults write NSGlobalDomain KeyRepeat -int 2
 
 # Shortest initial repeat delay (15) reduces the time before a held key starts
 # repeating, making hold-to-navigate significantly more responsive
+# InitialKeyRepeat: 15ms units (15=225ms shortest, 25=375ms default, 120=slowest)
 echo "    → Setting initial key repeat delay (15)"
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 # Globe key → Change Input Source (1) is the most common use of the Globe key
 # for multi-language users; avoids accidental Dictation triggers
+# AppleFnUsageType:
+#   0=do nothing, 1=change input source, 2=show emoji picker, 3=start dictation
 echo "    → Setting Globe key action (Change Input Source / 1)"
 defaults write com.apple.HIToolbox AppleFnUsageType -int 1
 
 # Full keyboard navigation (mode 3) allows Tab to cycle through every UI
 # control — buttons, checkboxes, menus — essential for accessibility
 # and keyboard-driven workflows
+# AppleKeyboardUIMode: 0=text fields and lists only, 2=all controls (legacy), 3=all controls
 echo "    → Enabling full keyboard navigation (3)"
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
 # Disabling Dictation prevents audio from being streamed to Apple's speech
 # recognition servers when the Dictation shortcut is triggered
+# AppleDictationAutoEnable: 0=disabled, 1=enabled
 echo "    → Disabling Dictation (0)"
 defaults write com.apple.HIToolbox AppleDictationAutoEnable -int 0
 
@@ -892,22 +924,36 @@ echo "  [Trackpad]"
 
 # Tap-to-click enables a light tap instead of a physical click, reducing
 # finger fatigue and matching the expected MacBook trackpad behaviour
-echo "    → Enabling tap to click (true)"
+echo "    → Enabling tap to click for Bluetooth trackpad (true)"
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+echo "    → Enabling tap to click for built-in trackpad (true)"
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+# com.apple.mouse.tapBehavior: 0=tap to click disabled, 1=tap to click enabled
+echo "    → Enabling tap to click system-wide (1)"
 defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
+# Click pressure: 0=light, 1=medium, 2=firm
+echo "    → Setting primary click pressure (medium / 1)"
+defaults write com.apple.AppleMultitouchTrackpad FirstButtonThreshold -int 1
+echo "    → Setting secondary click pressure (medium / 1)"
+defaults write com.apple.AppleMultitouchTrackpad SecondButtonThreshold -int 1
+
 # Tracking speed 1.5 is above the default 1.0 and provides a balance between
 # precision and speed — adjust to taste within the 0.0–3.0 range
+# com.apple.trackpad.scaling: 0.0=slowest, 1.0=default, 3.0=fastest
 echo "    → Setting trackpad tracking speed (1.5)"
 defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1.5
 
 # Three-finger swipe down for App Exposé is more ergonomic than four-finger
 # swipe and mirrors the Mission Control gesture but scoped to the current app
-echo "    → Enabling App Exposé swipe gesture (three fingers / true)"
+# TrackpadFourFingerVertSwipeGesture: 0=disabled, 2=enabled
+# TrackpadThreeFingerVertSwipeGesture: 0=disabled, 2=enabled
+echo "    → Enabling App Exposé swipe gesture in Dock (true)"
 defaults write com.apple.dock showAppExposeGestureEnabled -bool true
+echo "    → Disabling four-finger vertical swipe gesture (0)"
 defaults write com.apple.AppleMultitouchTrackpad TrackpadFourFingerVertSwipeGesture -int 0
+echo "    → Enabling three-finger vertical swipe gesture (2)"
 defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture -int 2
 
 killall Dock 2>/dev/null || true
@@ -965,7 +1011,16 @@ sudo pmset -a standbydelay 900
 
 # Hibernate mode 25 writes a FileVault-encrypted RAM image to disk before
 # sleeping, ensuring data-at-rest protection even if the battery dies during standby
-echo "    → Setting hibernate mode (sleep + encrypted hibernate / 25)"
+# hibernatemode:
+#   0=sleep only (RAM powered, instant wake, no disk image)
+#   3=safe sleep (RAM powered + encrypted disk image written, macOS default on laptops)
+#   25=hibernate (RAM written to disk, RAM powered off, most secure, slower wake)
+#
+# Lid close behaviour with this configuration:
+#   0–15 min  → normal sleep, RAM powered, Touch ID works on wake
+#   15 min+   → standby triggers, FileVault key purged from RAM, full password required
+#   battery dies during sleep → hibernate image protects data, resumes from disk on next boot
+echo "    → Setting hibernate mode (hibernate only / 25)"
 sudo pmset -a hibernatemode 25
 
 
@@ -1026,17 +1081,20 @@ echo "  [Software Update]"
 # behind on available updates without having done anything
 echo "    → Enabling automatic update checks (true)"
 defaults write com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+# ScheduleFrequency: 1=daily, 7=weekly
 echo "    → Setting update check frequency (daily / 1)"
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 # Background download means updates are ready to install immediately when
 # you open System Settings — no waiting for the download to complete
+# AutomaticDownload: 0=disabled, 1=enabled
 echo "    → Enabling background update downloads (1)"
 defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
 
 # Security patches — XProtect malware definitions, MRT, Gatekeeper blocklists,
 # certificate revocations — install automatically without prompting;
 # zero-day patches are applied without requiring manual action
+# CriticalUpdateInstall: 0=disabled, 1=enabled
 echo "    → Enabling automatic security patch installation (1)"
 defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
 
@@ -1055,17 +1113,25 @@ echo "  [Activity Monitor]"
 # Showing a live CPU usage histogram in the Dock icon lets you spot runaway
 # processes at a glance without switching to the app — all cores shown in
 # a small real-time graph
+# IconType:
+#   0=application icon, 1=network usage, 2=disk activity,
+#   3=memory usage, 4=CPU history, 5=CPU usage
 echo "    → Setting Activity Monitor Dock icon to CPU usage graph (5)"
 defaults write com.apple.ActivityMonitor IconType -int 5
 
 # Sorting by CPU descending means the highest-consuming process is always
 # at the top when you open Activity Monitor — no manual column click required
-echo "    → Setting Activity Monitor default sort (CPU usage, descending)"
+echo "    → Setting Activity Monitor sort column (CPUUsage)"
 defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
+# SortDirection: 0=descending, 1=ascending
+echo "    → Setting Activity Monitor sort direction (descending / 0)"
 defaults write com.apple.ActivityMonitor SortDirection -int 0
 
 # Showing all processes rather than just user-owned ones gives a complete
 # picture of system activity including background daemons
+# ShowCategory:
+#   0=all processes, 1=my processes, 2=system processes,
+#   3=other processes, 4=windowed processes
 echo "    → Showing all processes in Activity Monitor (0)"
 defaults write com.apple.ActivityMonitor ShowCategory -int 0
 
@@ -1110,12 +1176,14 @@ defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false
 # navigation is available immediately on every save without clicking a toggle
 echo "    → Expanding save panel by default (true)"
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+echo "    → Expanding save panel by default mode 2 (true)"
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 
 # Print dialogs also default to compact mode — forcing expanded mode means
 # paper size, orientation, and printer-specific options are visible immediately
 echo "    → Expanding print panel by default (true)"
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+echo "    → Expanding print panel by default mode 2 (true)"
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
 # Setting window resize time to near-zero makes Cocoa windows snap to their
@@ -1142,11 +1210,13 @@ defaults write com.apple.coreduetd.plist ActivityReceivingAllowed -bool true
 # Silencing the crash reporter dialog prevents the UI prompt from appearing
 # after a crash, which could inadvertently invite "Send to Apple" clicks.
 # Analytical opt-out is already set in the Analytics section.
+# DialogType: "developer"=detailed dialog, "basic"=basic dialog, "none"=silent
 echo "    → Setting crash reporter dialog type (none)"
 defaults write com.apple.CrashReporter DialogType none
 
 # Setting Recent Documents limit to 0 prevents "Open Recent" history from
 # accumulating in app menus, removing a passive record of opened files
+# NSRecentDocumentsLimit: 0=disabled, default=10
 echo "    → Setting recent documents limit (0)"
 defaults write NSGlobalDomain NSRecentDocumentsLimit -int 0
 
@@ -1201,8 +1271,9 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow EnableExternalAcc
 
 # Disabling re-launch of apps from the previous session prevents apps from
 # automatically opening on next login, giving a clean, known-good startup state
-echo "    → Disabling re-launch of apps saved at logout (false)"
+echo "    → Disabling app state save at logout (false)"
 defaults write com.apple.loginwindow TALLogoutSavesState -bool false
+echo "    → Disabling app re-launch on login (false)"
 defaults write com.apple.loginwindow LoginwindowLaunchesRelaunchApps -bool false
 
 # Allowing the user to reset their login password via Apple Account provides
@@ -1240,6 +1311,7 @@ fi
 # remote shell access even for authenticated users
 echo "    → Disabling Remote Login / SSH server (off)"
 sudo systemsetup -f -setremotelogin off 2>/dev/null || true
+echo "    → Disabling SSH daemon via launchctl"
 sudo launchctl disable system/com.openssh.sshd 2>/dev/null || true
 
 # Auto-restarting after a complete system freeze (kernel panic, hung process)
@@ -1291,6 +1363,7 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.auditd.plist 2>/d
 # Retaining system logs for 365 days provides a full year of audit history —
 # the default MacOS log retention is very short (days) and insufficient for
 # detecting slow or retrospective threats
+# logTTL: days (default=7, recommended minimum=90)
 echo "    → Setting system log retention (365 days)"
 sudo defaults write /Library/Preferences/com.apple.logd logTTL -int 365
 
@@ -1330,8 +1403,12 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
 # Opening new Finder windows to Documents provides a sensible default
 # that matches where most working files are stored
-echo "    → Setting new Finder window default location (Documents)"
+# NewWindowTarget:
+#   "PfCm"=Computer, "PfVo"=Volume, "PfHm"=Home, "PfDe"=Desktop,
+#   "PfDo"=Documents, "PfAF"=All Files, "PfLo"=custom path
+echo "    → Setting new Finder window target (Documents)"
 defaults write com.apple.finder NewWindowTarget -string "PfDo"
+echo "    → Setting new Finder window target path (~/Documents)"
 defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Documents/"
 
 # Opening folders in tabs rather than new windows keeps Finder sessions
@@ -1389,11 +1466,13 @@ defaults write com.apple.finder _FXSortFoldersFirstOnDesktop -bool true
 # Searching the current folder by default scopes results to the relevant
 # directory, avoiding noisy Mac-wide results when a folder-specific search
 # is intended
+# FXDefaultSearchScope: "SCev"=entire Mac, "SCcf"=current folder, "SCsp"=previous scope
 echo "    → Setting default search scope (current folder / SCcf)"
 defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
 # Column view provides Miller-column navigation — each click opens a new
 # column showing the selected folder's contents, ideal for deep hierarchies
+# FXPreferredViewStyle: "icnv"=icon, "Nlsv"=list, "clmv"=column, "Flwv"=gallery
 echo "    → Setting default Finder view style (column / clmv)"
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
