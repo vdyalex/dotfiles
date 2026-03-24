@@ -4,12 +4,16 @@ brew "antidote"
 brew "bat"
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
+# Convert text to Postscript, HTML, or RTF, with syntax highlighting
+brew "enscript"
 # Modern, maintained replacement for ls
 brew "eza"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# Interpreter for PostScript and PDF
+brew "ghostscript"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
 # GNU Privacy Guard (OpenPGP)

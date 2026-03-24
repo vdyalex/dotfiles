@@ -109,6 +109,17 @@ export PAGER='bat --paging=always'
 export GIT_PAGER='delta'
 export MANPAGER="sh -c 'col -bx | bat -l man --paging=always'"
 
+# ── pdf ─────────────────────────────────────────────────────────────────────────────────────────
+pdf() {
+  local input="$1"
+  local output="${2:-${input:r}.pdf}"
+  if [[ -z "$input" ]]; then
+    echo "Usage: pdf <input> [output.pdf]" >&2
+    return 1
+  fi
+  enscript "$input" --font=Helvetica11 --baselineskip=8 --margins=32:40:40:32 --word-wrap --no-header -o - | ps2pdf - "$output"
+}
+
 # ── aliases ───────────────────────────────────────────────────────────────────────────────────────
 export BAT_THEME_LIGHT="Catppuccin Latte"
 export BAT_THEME_DARK="Catppuccin Mocha"
