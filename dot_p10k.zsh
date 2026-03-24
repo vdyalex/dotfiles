@@ -431,11 +431,11 @@
     fi
 
     # Styling for different parts of Git status.
-    local       meta=$(_t '%F{#4c4f69}' '%F{#cdd6f4}') # white foreground
-    local      clean=$(_t '%F{#dce0e8}' '%F{#11111b}') # black foreground
-    local   modified=$(_t  '%F{#dce0e8}' '%F{#11111b}') # black foreground
-    local  untracked=$(_t '%F{#dce0e8}' '%F{#11111b}') # black foreground
-    local conflicted=$(_t  '%F{#d20f39}' '%F{#f38ba8}') # red foreground
+    local       meta=$(_t "%F{$P10K_COLOR_TEXT}" "%F{$P10K_COLOR_TEXT}") # text foreground
+    local      clean=$(_t "%F{$P10K_COLOR_ROSEWATER}" "%F{$P10K_COLOR_CRUST}") # text foreground
+    local   modified=$(_t "%F{$P10K_COLOR_ROSEWATER}" "%F{$P10K_COLOR_CRUST}") # text foreground
+    local  untracked=$(_t "%F{$P10K_COLOR_ROSEWATER}" "%F{$P10K_COLOR_CRUST}") # text foreground
+    local conflicted=$(_t "%F{$P10K_COLOR_RED}" "%F{$P10K_COLOR_RED}") # red foreground
 
     local res
 
