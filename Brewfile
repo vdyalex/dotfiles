@@ -12,6 +12,8 @@ brew "eza"
 brew "fd"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# Interact with Google Gemini AI models from the command-line
+brew "gemini-cli"
 # Interpreter for PostScript and PDF
 brew "ghostscript"
 # Syntax-highlighting pager for git and diff output
@@ -22,10 +24,14 @@ brew "gnupg"
 brew "go"
 # Improved top (interactive process viewer)
 brew "htop"
+# Create, run, and share large language models (LLMs)
+brew "ollama"
 # Internet file retriever
 brew "wget"
 # Terminal-based AI coding assistant
 cask "claude-code"
+# OpenAI's coding agent that runs in your terminal
+cask "codex"
 # Open-source code editor
 cask "visual-studio-code"
 vscode "adpyke.codesnap"
@@ -116,3 +122,6 @@ vscode "xdebug.php-debug"
 vscode "xdebug.php-pack"
 vscode "yzhang.markdown-all-in-one"
 vscode "zobo.php-intellisense"
+go "github.com/golangci/golangci-lint/cmd/golangci-lint"
+go "golang.org/x/tools/gopls"
+go "go.uber.org/mock/mockgen"

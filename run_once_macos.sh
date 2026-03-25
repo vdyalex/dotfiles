@@ -1110,15 +1110,6 @@ defaults write com.apple.commerce AutoUpdate -bool true
 
 echo "  [Activity Monitor]"
 
-# Showing a live CPU usage histogram in the Dock icon lets you spot runaway
-# processes at a glance without switching to the app — all cores shown in
-# a small real-time graph
-# IconType:
-#   0=application icon, 1=network usage, 2=disk activity,
-#   3=memory usage, 4=CPU history, 5=CPU usage
-echo "    → Setting Activity Monitor Dock icon to CPU usage graph (5)"
-defaults write com.apple.ActivityMonitor IconType -int 5
-
 # Sorting by CPU descending means the highest-consuming process is always
 # at the top when you open Activity Monitor — no manual column click required
 echo "    → Setting Activity Monitor sort column (CPUUsage)"
@@ -1248,13 +1239,16 @@ if [[ "${_r}" =~ ^[Yy]$ ]]; then
   read -r OWNER_NAME
   printf "    Owner phone: "
   read -r OWNER_PHONE
-  LOGIN_BANNER="Authorized use only. This device is encrypted and location tracking is enabled. If found, contact ${OWNER_NAME} by call, SMS, iMessage, WhatsApp, or Telegram at ${OWNER_PHONE}."
+  LOGIN_BANNER="Authorized use only. This device is encrypted and its location tracking is enabled. If found, contact ${OWNER_NAME} by call, SMS, iMessage, WhatsApp, or Telegram at ${OWNER_PHONE}."
 fi
 
 if [[ -n "${LOGIN_BANNER:-}" ]]; then
+  echo "    → Enabling login window message display (true)"
+  sudo defaults write /Library/Preferences/com.apple.loginwindow ShowBannerText -bool true
   echo "    → Setting login window disclaimer text"
   sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText -string "$LOGIN_BANNER"
 else
+  sudo defaults write /Library/Preferences/com.apple.loginwindow ShowBannerText -bool false
   sudo defaults delete /Library/Preferences/com.apple.loginwindow LoginwindowText 2>/dev/null || true
 fi
 

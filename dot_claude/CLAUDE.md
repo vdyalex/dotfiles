@@ -77,8 +77,9 @@ Maintain: unit tests, integration tests, smoke tests, end-to-end tests (when not
 - Deterministic tests: no sleeps, no time-dependent logic, stub all network.
 - Isolate test cases. Fixtures, mocks, stubs in dedicated folders.
 - Shared test setup (fixtures, helpers, utils) in `tests/mocks/`. Parameterize with generics over per-file helpers when logic is identical across files.
-- Co-locate unit/integration tests beside source (according to the language convention, i.e. in `__tests__/`). Root `tests/` for config, mocks, stubs, smoke and e2e only.
+- Co-locate unit/integration tests beside source (according to the language convention, i.e. in `__tests__/`). Create `tests/` at the repoitory root for config, mocks, stubs, smoke and e2e only.
 - One command for all tests; one command for coverage.
+
 
 ### Static checks
 
