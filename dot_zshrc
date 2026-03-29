@@ -1,10 +1,31 @@
+# ── init options ──────────────────────────────────────────────────────────────────────────────────
+export GPG_TTY=$(tty)
+
+# Fix homebrew and gettext: https://github.com/Homebrew/homebrew-core/issues/41139
+export LC_ALL=en_US.UTF-8
+
+# Disable Objective-C fork safety to avoid crashes with certain libraries
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# ── homebrew ──────────────────────────────────────────────────────────────────────────────────────
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# ── interactive session ────────────────────────────────────────────────────────────────────────────
+_get_interactive_session() {
+  if [ -n "$PS1" ]; then
+    echo "true"
+  else
+    echo "false"
+  fi
+}
+
+# Exiting when using non-interactive prompts and tools, like Claude, installers, or background commands
+[[ $(_get_interactive_session) == "false" ]] && return
+
 # ── powerlevel10k instant prompt ──────────────────────────────────────────────────────────────────
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-# ── homebrew ──────────────────────────────────────────────────────────────────────────────────────
-eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # ── completions ───────────────────────────────────────────────────────────────────────────────────
 autoload -Uz compinit
@@ -28,14 +49,6 @@ setopt AUTO_CD
 setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 setopt nocorrectall;
-
-export GPG_TTY=$(tty)
-
-# Fix homebrew and gettext: https://github.com/Homebrew/homebrew-core/issues/41139
-export LC_ALL=en_US.UTF-8
-
-# Disable Objective-C fork safety to avoid crashes with certain libraries
-export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # ── theme detection ───────────────────────────────────────────────────────────────────────────────
 _get_system_theme() {
@@ -141,9 +154,11 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias -- -='cd -'
-for index ({1..9}) alias "$index"="cd -${index}"; unset index
 
 # cp / mv / rm / mkdir / rmdir
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
 alias md='mkdir -p'
 alias rd='rmdir'
 
