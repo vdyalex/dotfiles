@@ -25,7 +25,7 @@
   "chat.mcp.gallery.enabled": true,
   "claudeCode.initialPermissionMode": "plan",
   "claudeCode.preferredLocation": "panel",
-  "claudeCode.selectedModel": "haiku",
+  "claudeCode.selectedModel": "sonnet",
   "containers.contexts.showInStatusBar": true,
   "debug.console.fontSize": 15,
   "dev.containers.dockerComposePath": "docker compose",

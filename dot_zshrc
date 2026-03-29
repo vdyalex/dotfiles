@@ -144,9 +144,6 @@ alias -- -='cd -'
 for index ({1..9}) alias "$index"="cd -${index}"; unset index
 
 # cp / mv / rm / mkdir / rmdir
-alias cp='cp -i'
-alias mv='mv -i'
-alias rm='rm -i'
 alias md='mkdir -p'
 alias rd='rmdir'
 

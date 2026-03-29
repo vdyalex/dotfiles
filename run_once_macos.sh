@@ -1031,12 +1031,11 @@ sudo pmset -a hibernatemode 25
 echo "  [Fonts]"
 
 _fonts_dir="$HOME/Library/Fonts"
-_fonts_archive="${CHEZMOI_SOURCE_DIR}/fonts.tar.gz"
+_fonts_archive="${CHEZMOI_SOURCE_DIR}/assets/fonts.tar.gz"
 
-if [[ ! -f "$_fonts_archive" ]]; then
-  echo "    ⚠  fonts.tar.gz not found — skipping font installation"
-  echo "       Expected at: ${_fonts_archive}"
-else
+printf "    Install fonts from fonts.tar.gz? [y/N] "
+read -r _r
+if [[ "${_r}" =~ ^[Yy]$ ]]; then
   echo "    → Decompressing fonts.tar.gz into ~/Library/Fonts"
   mkdir -p "$_fonts_dir"
   tar -xzvf "$_fonts_archive" -C "$_fonts_dir"
@@ -1055,9 +1054,11 @@ echo "  [Safari]"
 # access are both blocked. A configuration profile covers the manageable keys;
 # the remainder must be set manually (see checklist at the end of this script).
 # The profile must be in the same directory as this script.
-_safari_profile="${CHEZMOI_SOURCE_DIR}/safari.mobileconfig"
+_safari_profile="${CHEZMOI_SOURCE_DIR}/assets/safari.mobileconfig"
 
-if [[ -f "$_safari_profile" ]]; then
+printf "    Install Safari configuration profile? [y/N] "
+read -r _r
+if [[ "${_r}" =~ ^[Yy]$ ]]; then
   echo "    → Installing Safari configuration profile"
   open "$_safari_profile"
   # Give the profile installer a moment to register before opening System Settings
@@ -1065,9 +1066,6 @@ if [[ -f "$_safari_profile" ]]; then
   echo "    → Opening System Settings → General → Device Management"
   open "x-apple.systempreferences:com.apple.preferences.configurationprofiles"
   echo "    ⚠  Approve the profile in System Settings → General → Device Management"
-else
-  echo "    ⚠  safari.mobileconfig not found — skipping Safari settings..."
-  echo "       Expected at: ${_safari_profile}"
 fi
 
 
@@ -1247,9 +1245,6 @@ if [[ -n "${LOGIN_BANNER:-}" ]]; then
   sudo defaults write /Library/Preferences/com.apple.loginwindow ShowBannerText -bool true
   echo "    → Setting login window disclaimer text"
   sudo defaults write /Library/Preferences/com.apple.loginwindow LoginwindowText -string "$LOGIN_BANNER"
-else
-  sudo defaults write /Library/Preferences/com.apple.loginwindow ShowBannerText -bool false
-  sudo defaults delete /Library/Preferences/com.apple.loginwindow LoginwindowText 2>/dev/null || true
 fi
 
 # Disabling console login prevents an attacker with physical access from
