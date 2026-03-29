@@ -5,23 +5,24 @@
   "parallelTasksCount": 3,
   "feedbackSurveyRate": 0,
   "showTurnDuration": true,
+  "plansDirectory": "./plans",
   "attribution": {
     "commits": false,
     "pullRequests": false
   },
   "permissions": {
     "allow": [
-      "Bash(find . *)",
-      "Bash(wc ./*)",
-      "Bash(ls ./*)",
-      "Bash(cat ./*)",
-      "Bash(grep * ./*)",
-      "Bash(head ./*)",
-      "Bash(tail ./*)",
-      "Bash(stat ./*)",
-      "Bash(file ./*)",
-      "Bash(du ./*)",
-      "Bash(tree ./*)",
+      "Bash(find *)",
+      "Bash(wc *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(grep * *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(stat *)",
+      "Bash(file *)",
+      "Bash(du *)",
+      "Bash(tree *)",
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",
@@ -29,8 +30,8 @@
       "Bash(git remote:*)",
       "Bash(git blame:*)",
       "WebSearch",
-      "Glob(./*)",
-      "Read(./*)"
+      "Glob",
+      "Read"
     ],
     "ask": [
       "WebFetch",
@@ -40,9 +41,9 @@
     "deny": [
       "Read(*.key)",
       "Read(*.pem)",
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(./secrets/**)",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(secrets/**)",
       "Bash(rm -rf:*)",
       "Bash(curl:*)",
       "Bash(wget:*)",
@@ -55,6 +56,6 @@
   ],
   "env": {
     "CLAUDE_TELEMETRY_DISABLED": "1",
-    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "80"
-  }
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "80",
+  },
 }
