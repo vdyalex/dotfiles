@@ -29,11 +29,11 @@
       "Bash(git remote:*)",
       "Bash(git blame:*)",
       "WebSearch",
+      "WebFetch",
       "Glob",
       "Read"
     ],
     "ask": [
-      "WebFetch",
       "Bash(git push:*)",
       "Bash(git commit:*)"
     ],

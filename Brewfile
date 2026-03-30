@@ -1,5 +1,7 @@
 # Plugin manager for zsh, inspired by antigen and antibody
 brew "antidote"
+# Cryptography and SSL/TLS Toolkit
+brew "openssl@3"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Manage your dotfiles across multiple diverse machines, securely
@@ -103,6 +105,7 @@ vscode "ms-vscode.remote-repositories"
 vscode "ms-vscode.test-adapter-converter"
 vscode "neilbrayfield.php-docblocker"
 vscode "open-southeners.laravel-pint"
+vscode "openai.chatgpt"
 vscode "orta.vscode-jest"
 vscode "quicktype.quicktype"
 vscode "redhat.vscode-xml"

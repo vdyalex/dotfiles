@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # ── init options ──────────────────────────────────────────────────────────────────────────────────
 export GPG_TTY=$(tty)
 
@@ -8,7 +10,7 @@ export LC_ALL=en_US.UTF-8
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # ── homebrew ──────────────────────────────────────────────────────────────────────────────────────
-eval "$(/opt/homebrew/bin/brew shellenv)"
+source <(/opt/homebrew/bin/brew shellenv)
 
 # ── interactive session ────────────────────────────────────────────────────────────────────────────
 _get_interactive_session() {

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # MacOS system preferences restore script
 # Run:   zsh .macos
@@ -917,6 +917,42 @@ defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# KEYBOARD SHORTCUTS
+# ══════════════════════════════════════════════════════════════════════════════
+
+echo "  [Keyboard Shortcuts]"
+
+# Disabling screenshot shortcuts frees Cmd+Shift+3/4/5 for other tools
+# (e.g. window managers, clipboard managers) and prevents accidental captures
+# AppleSymbolicHotKeys IDs:
+#   28=save screen to file, 29=copy screen to clipboard,
+#   30=save selection to file, 31=copy selection to clipboard,
+#   184=screenshot and recording options panel
+echo "    → Disabling screenshot shortcut: save screen to file (28)"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 28 '<dict><key>enabled</key><false/></dict>'
+echo "    → Disabling screenshot shortcut: copy screen to clipboard (29)"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 29 '<dict><key>enabled</key><false/></dict>'
+echo "    → Disabling screenshot shortcut: save selection to file (30)"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 30 '<dict><key>enabled</key><false/></dict>'
+echo "    → Disabling screenshot shortcut: copy selection to clipboard (31)"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 31 '<dict><key>enabled</key><false/></dict>'
+echo "    → Disabling screenshot shortcut: screenshot and recording options (184)"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 184 '<dict><key>enabled</key><false/></dict>'
+
+# Disabling input source switching shortcuts prevents Ctrl+Space and
+# Ctrl+Option+Space from hijacking key combinations used by editors and IDEs
+# AppleSymbolicHotKeys IDs:
+#   60=select previous input source, 61=select next input source
+echo "    → Disabling input source shortcut: select previous input source (60)"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 '<dict><key>enabled</key><false/></dict>'
+echo "    → Disabling input source shortcut: select next input source (61)"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 61 '<dict><key>enabled</key><false/></dict>'
+
+# Apply symbolic hotkey changes immediately without requiring a restart
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # TRACKPAD
 # ══════════════════════════════════════════════════════════════════════════════
 
@@ -1066,6 +1102,11 @@ if [[ "${_r}" =~ ^[Yy]$ ]]; then
   echo "    → Opening System Settings → General → Device Management"
   open "x-apple.systempreferences:com.apple.preferences.configurationprofiles"
   echo "    ⚠  Approve the profile in System Settings → General → Device Management"
+
+  echo "  ┌────────────────────────────────────────────────────────────────────┐"
+  echo "  │  Safari → Settings — complete these manually after approving       │"
+  echo "  │  the configuration profile in System Settings → Device Management  │"
+  echo "  └────────────────────────────────────────────────────────────────────┘"
 fi
 
 
@@ -1531,25 +1572,6 @@ sudo chmod 440 /etc/sudoers.d/00-timeout
 
 echo ""
 echo "  ✓  All settings applied."
-echo ""
-
-
-# ══════════════════════════════════════════════════════════════════════════════
-# SAFARI — MANUAL CHECKLIST
-# ══════════════════════════════════════════════════════════════════════════════
-
-echo "  ┌──────────────────────────────────────────────────────────────────┐"
-echo "  │  Safari → Settings — complete these manually after approving     │"
-echo "  │  the configuration profile in System Settings → Device Management│"
-echo "  └──────────────────────────────────────────────────────────────────┘"
-echo ""
-echo "  Tabs"
-echo "    □  Always show website titles in tabs: ON"
-echo ""
-echo "  Advanced"
-echo "    □  Use advanced tracking and fingerprinting protection: in All Browsing"
-echo "    □  Allow websites to check for Apple Pay and Apple Card: OFF"
-echo "    □  Allow privacy-preserving measurement of ad effectiveness: OFF"
 echo ""
 
 

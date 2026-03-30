@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 mkdir -p ~/.config/eza/themes/light ~/.config/eza/themes/dark
 

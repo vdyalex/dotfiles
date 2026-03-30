@@ -58,7 +58,6 @@
   "editor.parameterHints.cycle": true,
   "editor.quickSuggestionsDelay": 0,
   "editor.renderControlCharacters": true,
-  "editor.renderWhitespace": "boundary",
   "editor.rulers": [
     100
   ],
