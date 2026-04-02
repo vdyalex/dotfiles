@@ -12,14 +12,20 @@ brew "enscript"
 brew "eza"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
+# Fast and simple Node.js version manager
+brew "fnm"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# Library for command-line editing
+brew "readline"
 # Interact with Google Gemini AI models from the command-line
 brew "gemini-cli"
 # Interpreter for PostScript and PDF
 brew "ghostscript"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
+# GNU multiple precision arithmetic library
+brew "gmp"
 # GNU Privacy Guard (OpenPGP)
 brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
@@ -83,6 +89,7 @@ vscode "jock.svg"
 vscode "juanblanco.solidity"
 vscode "laravel.vscode-laravel"
 vscode "lmcarreiro.vscode-smart-column-indenter"
+vscode "mads-hartmann.bash-ide-vscode"
 vscode "mariano-g.plist-editor"
 vscode "mechatroner.rainbow-csv"
 vscode "medo64.code-point"
@@ -119,7 +126,6 @@ vscode "shufo.vscode-blade-formatter"
 vscode "steoates.autoimport"
 vscode "tamasfe.even-better-toml"
 vscode "technosophos.vscode-make"
-vscode "timonwong.shellcheck"
 vscode "wayou.vscode-todo-highlight"
 vscode "xdebug.php-debug"
 vscode "xdebug.php-pack"
