@@ -1,11 +1,12 @@
 [user]
-	name = {{ .git_name }}
-	email = {{ .git_email }}
-	signingkey = {{ .git_signingkey }}
+	name = vdyalex
+	email = 1559784+vdyalex@users.noreply.github.com
+	signingkey = ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDDsG8xooSw61JJvOTzIHBMN0hYMvS35Vt4dNaWiugOU3C0inldcB9DiUCZulJLsu/LOFS/gVbyscYj9iuOXh9RtWGqHyeOkmNFiG4Q3TKkX74ZCD1wzDHeEWxdRr0Y/YEfVyWYSLrxYEaTEbWCEwQB87OZDQ0L1CLiO4UY2a8HTgW4vg7JW3yP6N0iQjNkN2KPTEYjkD4wUIDp5VqM7LOyAmkY+LPu6LT9+95d00OR4yn3DgF9E5yjJJnU2k6xO4u4QgGvJfWZscZ0cPwkXHRqsygmVLuvhZ9lCAwDOPJJbn+AOZ1syoQXthc3rAK0wWrqTlY37ic0hBBPBcf0NH+OVxLdPtp5Tv2Y85j964+7Z8hjR2c8WVjyaqCTaNVxb0sDrSxICDHR4rNsq9rcE3mwbKwUjbnryGz37c96ul0FwOmszRu0/DbXyhN58wyfU/SgvJTMKpKokuLOLe+TJg8YlIkRkoh5n0lmxed0/g6unoWZdckC7i7UQoG9g9eE/qwp7yR4JeBRe//Kr5Jc+TFmDALQJTofc12R3tKmhXSOX5cT+zug6mlWGePEY4xIuyaPjEJ4uxPVn5Vsn3Pccf/mPmcDgs6oBPDaE3l1Z+t4H06p3Xe6aBCB56zLxX+cLxRnz3YkPHwHfdpJxRj/xFjmOO4DtiwZirfRApjjejoeLQ==
 [core]
 	pager = delta
 	ignorecase = false
 	editor = vim
+	excludesfile = /Users/vdyalex/.gitignore_global
 [delta]
 	features = catppuccin-latte
 	navigate = true
@@ -22,8 +23,10 @@
 	diffFilter = delta --color-only
 [merge]
 	conflictstyle = diff3
+	tool = Kaleidoscope
 [diff]
 	colorMoved = default
+	tool = Kaleidoscope
 [pull]
 	rebase = false
 	ff = only
@@ -31,5 +34,21 @@
 	defaultBranch = main
 [push]
 	autoSetupRemote = true
+	default = upstream
 [advice]
 	addEmptyPathspec = false
+[difftool "sourcetree"]
+	cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
+	trustExitCode = true
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+[mergetool]
+	prompt = false
+	trustExitCode = true

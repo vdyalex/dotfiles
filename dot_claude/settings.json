@@ -4,7 +4,7 @@
   "parallelTasksCount": 3,
   "feedbackSurveyRate": 0,
   "showTurnDuration": true,
-  "plansDirectory": "./plans",
+  "plansDirectory": ".plans",
   "attribution": {
     "commits": false,
     "pullRequests": false
@@ -36,6 +36,7 @@
       "Read"
     ],
     "ask": [
+      "Bash(git add:*)",
       "Bash(git push:*)",
       "Bash(git commit:*)"
     ],
@@ -62,5 +63,6 @@
   "env": {
     "CLAUDE_TELEMETRY_DISABLED": "1",
     "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "80"
-  }
+  },
+  "model": "sonnet"
 }
