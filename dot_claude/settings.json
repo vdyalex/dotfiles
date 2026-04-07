@@ -1,13 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "alwaysThinkingEnabled": true,
   "parallelTasksCount": 3,
   "feedbackSurveyRate": 0,
   "showTurnDuration": true,
   "plansDirectory": ".plans",
   "attribution": {
-    "commits": false,
-    "pullRequests": false
+    "commit": "",
+    "pr": ""
   },
   "permissions": {
     "allow": [
