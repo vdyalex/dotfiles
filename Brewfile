@@ -6,6 +6,8 @@ brew "openssl@3"
 brew "bat"
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
+# Utility to configure multi-display resolutions and arrangements
+brew "displayplacer"
 # Convert text to Postscript, HTML, or RTF, with syntax highlighting
 brew "enscript"
 # Modern, maintained replacement for ls
@@ -16,16 +18,14 @@ brew "fd"
 brew "fnm"
 # Command-line fuzzy finder written in Go
 brew "fzf"
-# Library for command-line editing
-brew "readline"
-# Interact with Google Gemini AI models from the command-line
-brew "gemini-cli"
 # Interpreter for PostScript and PDF
 brew "ghostscript"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
 # GNU multiple precision arithmetic library
 brew "gmp"
+# Library for command-line editing
+brew "readline"
 # GNU Privacy Guard (OpenPGP)
 brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
@@ -131,6 +131,11 @@ vscode "xdebug.php-debug"
 vscode "xdebug.php-pack"
 vscode "yzhang.markdown-all-in-one"
 vscode "zobo.php-intellisense"
+go "github.com/go-delve/delve/cmd/dlv"
 go "github.com/golangci/golangci-lint/cmd/golangci-lint"
+go "github.com/246859/goplay/cmd/goplay"
 go "golang.org/x/tools/gopls"
+go "github.com/cweill/gotests/gotests"
+go "golang.org/x/vuln/cmd/govulncheck"
+go "github.com/josharian/impl"
 go "go.uber.org/mock/mockgen"
