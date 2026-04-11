@@ -14,30 +14,31 @@
       "Bash(wc *)",
       "Bash(ls *)",
       "Bash(cat *)",
-      "Bash(grep * *)",
+      "Bash(grep *)",
       "Bash(head *)",
       "Bash(tail *)",
       "Bash(stat *)",
       "Bash(file *)",
       "Bash(du *)",
       "Bash(tree *)",
-      "Bash(awk:*)",
-      "Bash(sed:*)",
-      "Bash(git status:*)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)",
-      "Bash(git show:*)",
-      "Bash(git remote:*)",
-      "Bash(git blame:*)",
+      "Bash(awk *)",
+      "Bash(sed *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git remote *)",
+      "Bash(git blame *)",
+      "Bash(which *)",
       "WebSearch",
       "WebFetch",
       "Glob",
       "Read"
     ],
     "ask": [
-      "Bash(git add:*)",
-      "Bash(git push:*)",
-      "Bash(git commit:*)"
+      "Bash(git add *)",
+      "Bash(git push *)",
+      "Bash(git commit *)"
     ],
     "deny": [
       "Read(*.key)",
@@ -49,9 +50,9 @@
       "Read(.env.production)",
       "Read(.env.test)",
       "Read(secrets/**)",
-      "Bash(rm -rf:*)",
-      "Bash(curl:*)",
-      "Bash(wget:*)"
+      "Bash(rm -rf *)",
+      "Bash(curl *)",
+      "Bash(wget *)"
     ]
   },
   "deniedMcpServers": [
