@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# ── init options ──────────────────────────────────────────────────────────────────────────────────
+# Init options #####################################################################################
 export GPG_TTY=$(tty)
 
 # Fix homebrew and gettext: https://github.com/Homebrew/homebrew-core/issues/41139
@@ -9,10 +9,10 @@ export LC_ALL=en_US.UTF-8
 # Disable Objective-C fork safety to avoid crashes with certain libraries
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
-# ── homebrew ──────────────────────────────────────────────────────────────────────────────────────
+# Homebrew #########################################################################################
 source <(/opt/homebrew/bin/brew shellenv)
 
-# ── interactive session ────────────────────────────────────────────────────────────────────────────
+# Interactive session ##############################################################################
 _get_interactive_session() {
   if [ -n "$PS1" ]; then
     echo "true"
@@ -21,24 +21,24 @@ _get_interactive_session() {
   fi
 }
 
-# Exiting when using non-interactive prompts and tools, like Claude, installers, or background commands
+# Exiting when using non-TTY prompts and tools, like Claude, installers, or background commands
 [[ $(_get_interactive_session) == "false" ]] && return
 
-# ── powerlevel10k instant prompt ──────────────────────────────────────────────────────────────────
+# Powerlevel10k instant prompt #####################################################################
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# ── completions ───────────────────────────────────────────────────────────────────────────────────
+# Completions ######################################################################################
 autoload -Uz compinit
 compinit
 COMPLETION_WAITING_DOTS="true"
 
-# ── antidote ──────────────────────────────────────────────────────────────────────────────────────
+# Antidote #########################################################################################
 source "$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh"
 antidote load
 
-# ── history ───────────────────────────────────────────────────────────────────────────────────────
+# History ##########################################################################################
 HISTFILE=~/.zsh_history
 HISTSIZE=50000
 SAVEHIST=50000
@@ -46,13 +46,13 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 
-# ── setup options ─────────────────────────────────────────────────────────────────────────────────
+# Setup options ####################################################################################
 setopt AUTO_CD
 setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 setopt nocorrectall;
 
-# ── theme detection ───────────────────────────────────────────────────────────────────────────────
+# Theme detection ##################################################################################
 _get_system_theme() {
   local file
   file="$HOME/Library/Preferences/.GlobalPreferences.plist"
@@ -66,7 +66,7 @@ _get_system_theme() {
 # set once at shell startup
 export UI_THEME="$(_get_system_theme)"
 
-# ── theme change watcher ──────────────────────────────────────────────────────────────────────────
+# Theme change watcher #############################################################################
 _theme_sync() {
   local current
   current="$(_get_system_theme)"
@@ -78,7 +78,7 @@ _theme_sync() {
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd _theme_sync
 
-# ── delta theme sync ──────────────────────────────────────────────────────────────────────────────
+# Delta theme sync #################################################################################
 _delta_theme_sync() {
   if [[ "$UI_THEME" == "light" ]]; then
     git config --global delta.features "catppuccin-latte"
@@ -88,12 +88,12 @@ _delta_theme_sync() {
 }
 _delta_theme_sync
 
-# ── enhancd (replacement for cd) ──────────────────────────────────────────────────────────────────
+# Enhancd (replacement for cd) #####################################################################
 export ENHANCD_FILTER="fzf --preview 'eza --tree --level 1 {}' --reverse --ansi"
 export ENHANCD_COMMAND="cd"
 export ENHANCD_DOT_SHOW_FULLPATH=1
 
-# ── eza (replacement for ls) ──────────────────────────────────────────────────────────────────────
+# Eza (replacement for ls) #########################################################################
 export EZA_CONFIG_DIR="$HOME/.config/eza/themes/$UI_THEME"
 
 alias l='eza'
@@ -104,38 +104,89 @@ alias lr='eza -lRa -L 2 --git --no-quotes'
 alias lt='eza -lTa -L 2 --git --no-quotes'
 alias ld='eza -lda --git --no-quotes .*'
 
-# ── tar/gzip aliases ──────────────────────────────────────────────────────
+# Tar/gzip aliases #################################################################################
 alias compress='tar -czvf'    # compress <archive.tar.gz> <file/dir>
 alias decompress='tar -xzvf'  # decompress <archive.tar.gz>
 
-# ── history-substring-search ──────────────────────────────────────────────────────────────────────
+# History-substring-search #########################################################################
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
-# ── fzf (fuzzy search) ────────────────────────────────────────────────────────────────────────────
+# Fzf (fuzzy search) ###############################################################################
 source <(fzf --zsh)
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 export FZF_CTRL_T_OPTS='--preview "bat --color=always --line-range=:50 {}"'
 
-# ── bat (replacement for cat) ─────────────────────────────────────────────────────────────────────
+# Bat (replacement for cat) ########################################################################
 export PAGER='bat --paging=always'
 export GIT_PAGER='delta'
 export MANPAGER="sh -c 'col -bx | bat -l man --paging=always'"
 
-# ── pdf ─────────────────────────────────────────────────────────────────────────────────────────
+# Pdf ##############################################################################################
 pdf() {
-  local input="$1"
-  local output="${2:-${input:r}.pdf}"
-  if [[ -z "$input" ]]; then
-    echo "Usage: pdf <input> [output.pdf]" >&2
+  local input=""
+  local output=""
+  local source=""
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -f)
+        input="$2"
+        shift 2
+        ;;
+      --filename=*)
+        input="${1#*=}"
+        shift
+        ;;
+      *)
+        output="$1"
+        shift
+        ;;
+    esac
+  done
+
+  if [[ -z "$output" ]]; then
+    echo "Usage: <command> | pdf <output.pdf> OR pdf -f <file> <output.pdf>" >&2
     return 1
   fi
-  enscript "$input" --font=Helvetica11 --baselineskip=8 --margins=32:40:40:32 --word-wrap --no-header -o - | ps2pdf - "$output"
+
+  [[ "$output" != *.pdf ]] && output="${output}.pdf"
+
+  if [[ -n "$input" ]]; then
+    [[ ! -f "$input" ]] && { echo "Error: file not found: $input" >&2; return 1; }
+    source="$input"
+  elif ! [ -t 0 ]; then
+    source="/dev/stdin"
+  else
+    local tmpfile="/tmp/pdf.$(date +%Y%m%dT%H%M%S).txt"
+    touch "$tmpfile"
+    ${EDITOR:-vim} "$tmpfile" </dev/tty >/dev/tty
+
+    if [[ ! -s "$tmpfile" ]]; then
+      echo "Error: no content written to $tmpfile" >&2
+      rm -f "$tmpfile"
+      return 1
+    fi
+
+    source="$tmpfile"
+  fi
+
+  enscript "$source" \
+    --font=Helvetica10 \
+    --baselineskip=8 \
+    --margins=32:40:40:32 \
+    --word-wrap \
+    --no-header \
+    -o - | ps2pdf - "$output"
+
+  [[ -n "$tmpfile" ]] && rm -f "$tmpfile"
+
+  open "$output"
 }
 
-# ── aliases ───────────────────────────────────────────────────────────────────────────────────────
+# Aliases ##########################################################################################
 export BAT_THEME_LIGHT="Catppuccin Latte"
 export BAT_THEME_DARK="Catppuccin Mocha"
 alias clear="clear && printf '\e[3J'"
@@ -175,10 +226,10 @@ alias -g CA="2>&1 | cat -A"
 alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
 
-# ── fnm (fast node manager) ───────────────────────────────────────────────────────────────────────
+# Fnm (fast node manager) ##########################################################################
 eval "$(fnm env --use-on-cd --shell zsh)"
 
-# ── powerlevel10k (always last) ───────────────────────────────────────────────────────────────────
+# Powerlevel10k (always last) ######################################################################
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 export POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
