@@ -1,9 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "parallelTasksCount": 3,
-  "feedbackSurveyRate": 0,
-  "showTurnDuration": true,
-  "plansDirectory": ".plans",
+  "env": {
+    "CLAUDE_TELEMETRY_DISABLED": "1",
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "80"
+  },
   "attribution": {
     "commit": "",
     "pr": ""
@@ -35,11 +35,6 @@
       "Glob",
       "Read"
     ],
-    "ask": [
-      "Bash(git add *)",
-      "Bash(git push *)",
-      "Bash(git commit *)"
-    ],
     "deny": [
       "Read(*.key)",
       "Read(*.pem)",
@@ -53,6 +48,11 @@
       "Bash(rm -rf *)",
       "Bash(curl *)",
       "Bash(wget *)"
+    ],
+    "ask": [
+      "Bash(git add *)",
+      "Bash(git push *)",
+      "Bash(git commit *)"
     ]
   },
   "deniedMcpServers": [
@@ -60,8 +60,9 @@
       "serverName": "filesystem"
     }
   ],
-  "env": {
-    "CLAUDE_TELEMETRY_DISABLED": "1",
-    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "80"
-  }
+  "feedbackSurveyRate": 0,
+  "effortLevel": "medium",
+  "plansDirectory": ".plans",
+  "parallelTasksCount": 3,
+  "showTurnDuration": true
 }
