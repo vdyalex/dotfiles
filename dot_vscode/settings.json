@@ -2,6 +2,9 @@
   "[dockercompose]": {
     "editor.defaultFormatter": "ms-azuretools.vscode-containers"
   },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -26,6 +29,7 @@
   "chat.disableAIFeatures": true,
   "chat.extensionUnification.enabled": false,
   "chat.mcp.gallery.enabled": true,
+  "claudeCode.disableLoginPrompt": true,
   "claudeCode.initialPermissionMode": "plan",
   "claudeCode.preferredLocation": "panel",
   "claudeCode.selectedModel": "sonnet",
