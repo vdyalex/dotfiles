@@ -1,7 +1,6 @@
 [user]
-	name = {{ .git_name }}
-	email = {{ .git_email }}
-	signingkey = {{ .git_signingkey }}
+	name = {{ onepasswordRead "op://Personal/Identity/Internet Details/username" }}
+	email = {{ onepasswordRead "op://Personal/Identity/Internet Details/email" }}
 [core]
 	pager = delta
 	ignorecase = false
@@ -17,6 +16,7 @@
 	program = /opt/homebrew/bin/gpg
 [gpg "ssh"]
 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+	defaultKeyCommand = op read op://Personal/SSH/public_key
 [commit]
 	gpgsign = true
 	template = /Users/vdyalex/.stCommitMsg
