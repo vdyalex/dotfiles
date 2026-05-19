@@ -63,6 +63,7 @@
   "feedbackSurveyRate": 0,
   "effortLevel": "medium",
   "plansDirectory": ".plans",
-  "parallelTasksCount": 3,
-  "showTurnDuration": true
+  "theme": "auto",
+  "showTurnDuration": true,
+  "parallelTasksCount": 3
 }

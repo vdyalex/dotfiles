@@ -124,11 +124,12 @@ export PAGER='bat --paging=always'
 export GIT_PAGER='delta'
 export MANPAGER="sh -c 'col -bx | bat -l man --paging=always'"
 
-# Pdf ##############################################################################################
+# PDF ##############################################################################################
 pdf() {
   local input=""
   local output=""
   local source=""
+  local tmpfile=""
 
   while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -148,19 +149,24 @@ pdf() {
   done
 
   if [[ -z "$output" ]]; then
-    echo "Usage: <command> | pdf <output.pdf> OR pdf -f <file> <output.pdf>" >&2
+    echo "Usage: <command> | pdf <output.pdf> OR pdf -f <file.md> <output.pdf>" >&2
     return 1
   fi
 
-  [[ "$output" != *.pdf ]] && output="${output}.pdf"
+  if [[ "$output" != *.pdf ]]; then
+    output="${output}.pdf"
+  fi
 
   if [[ -n "$input" ]]; then
-    [[ ! -f "$input" ]] && { echo "Error: file not found: $input" >&2; return 1; }
+    if [[ ! -f "$input" ]]; then
+      echo "Error: file not found: $input" >&2
+      return 1
+    fi
     source="$input"
   elif ! [ -t 0 ]; then
     source="/dev/stdin"
   else
-    local tmpfile="/tmp/pdf.$(date +%Y%m%dT%H%M%S).txt"
+    tmpfile="/tmp/pdf.$(date +%Y%m%dT%H%M%S).md"
     touch "$tmpfile"
     ${EDITOR:-vim} "$tmpfile" </dev/tty >/dev/tty
 
@@ -173,17 +179,21 @@ pdf() {
     source="$tmpfile"
   fi
 
-  enscript "$source" \
-    --font=Helvetica10 \
-    --baselineskip=8 \
-    --margins=32:40:40:32 \
-    --word-wrap \
-    --no-header \
-    -o - | ps2pdf - "$output"
+  pandoc "$source" \
+    --from=gfm \
+    --to=pdf \
+    --template="$HOME/.config/typst/template.typ" \
+    --pdf-engine=typst \
+    --output="$output"
 
-  [[ -n "$tmpfile" ]] && rm -f "$tmpfile"
+  rm -f "$tmpfile" &>/dev/null
 
-  open "$output"
+  if [[ -f "$output" ]]; then
+    open "$output"
+  else
+    echo "Error: PDF generation failed." >&2
+    return 1
+  fi
 }
 
 # Aliases ##########################################################################################
