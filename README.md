@@ -23,10 +23,7 @@ A curated macOS development environment with modern CLI tools, ergonomic shell c
    chezmoi init git@github.com:vdyalex/dotfiles.git
    ```
 
-   This clones the repo to `~/.local/share/chezmoi` and prompts for template variables:
-   - `git_name`: Name
-   - `git_email`: Email
-   - `git_signingkey`: SSH public key (for commit signing)
+   This clones the repo to `~/.local/share/chezmoi` and prompts 1password-cli completion
 
 ### Review the changes
 

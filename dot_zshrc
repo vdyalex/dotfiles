@@ -180,7 +180,7 @@ pdf() {
   fi
 
   pandoc "$source" \
-    --from=gfm \
+    --from=gfm+hard_line_breaks \
     --to=pdf \
     --template="$HOME/.config/typst/template.typ" \
     --pdf-engine=typst \
@@ -194,6 +194,39 @@ pdf() {
     echo "Error: PDF generation failed." >&2
     return 1
   fi
+}
+
+# shasum ###########################################################################################
+check() {
+  local file="$1"
+  # Convert input to lowercase using tr
+  local expected_hash=$(echo "$2" | tr '[:upper:]' '[:lower:]')
+  local algo="${3:-sha256}"
+
+  if [ ! -f "$file" ]; then
+    echo "Error: File '$file' not found." >&2
+    return 1
+  fi
+
+  local cmd
+  if command -v "${algo}sum" >/dev/null 2>&1; then
+    cmd="${algo}sum"
+  else
+    cmd="shasum -a ${algo#sha}"
+  fi
+
+  # Calculate hash and convert to lowercase using tr
+  local actual_hash
+  actual_hash=$($cmd "$file" | awk '{print $1}' | tr '[:upper:]' '[:lower:]')
+
+  if [ "$actual_hash" != "$expected_hash" ]; then
+    echo "Assertion Failed: Hash mismatch for $file." >&2
+    echo "Expected: $expected_hash" >&2
+    echo "Actual:   $actual_hash" >&2
+    exit 1
+  fi
+
+  echo "Success: $file integrity valid"
 }
 
 # Aliases ##########################################################################################
