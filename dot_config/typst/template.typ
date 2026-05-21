@@ -10,6 +10,11 @@
   fill: rgb("#1f2328"),
   weight: 400,
 )
+#set par(
+  leading: 1.15em,
+  spacing: 2.65em,
+  linebreaks: "optimized",
+)
 
 // GitHub-style Links with custom underline
 #show link: it => {
