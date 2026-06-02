@@ -95,4 +95,11 @@
   it
 }
 
+// GitHub-style Line Separator
+#let horizontalrule = {
+  v(0.5em)
+  line(length: 100%, stroke: 0.5pt + rgb("#d1d9e0"))
+  v(0.5em)
+}
+
 $body$
