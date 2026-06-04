@@ -1,4 +1,3 @@
-tap "macos-fuse-t/cask"
 # Plugin manager for zsh, inspired by antigen and antibody
 brew "antidote"
 # Cryptography and SSL/TLS Toolkit
@@ -41,10 +40,6 @@ brew "wget"
 brew "witr"
 # Terminal-based AI coding assistant
 cask "claude-code"
-# OpenAI's coding agent that runs in your terminal
-cask "codex"
-# LibFUSE implementation that doesn't use kernel extensions
-cask "macos-fuse-t/cask/fuse-t"
 # Open-source code editor
 cask "visual-studio-code"
 vscode "adpyke.codesnap"
