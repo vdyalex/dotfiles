@@ -229,6 +229,32 @@ check() {
   echo "Success: $file integrity valid"
 }
 
+# conceal ##########################################################################################
+conceal() {
+  if [ "$#" -eq 0 ]; then
+    echo "Provide at least one search term to identify leaks."
+    return 1
+  fi
+
+  local IFS="|"
+  local pattern="$*"
+
+  echo "--- Author and Committer ---"
+  git log -1 --format="Author: %an <%ae>%nCommitter: %cn <%ce>" | grep --color -iE "$pattern" || echo "Clean"
+
+  echo "--- Commit Message ---"
+  git log -1 --format="%B" | grep --color -iE "$pattern" || echo "Clean"
+
+  echo "--- File Contents ---"
+  git grep --color -iE "$pattern" || echo "Clean"
+}
+
+# date #############################################################################################
+days_ago() {
+  local days="${1:-0}"
+  date -v-"${days}"d +%s
+}
+
 # Aliases ##########################################################################################
 export BAT_THEME_LIGHT="Catppuccin Latte"
 export BAT_THEME_DARK="Catppuccin Mocha"
