@@ -1,13 +1,13 @@
 #set page(
   paper: "a4",
-  margin: .5in,
+  margin: (x: .5in, y: .625in),
   header: none,
   footer: none,
   numbering: none,
 )
 #set text(
-  font: "Helvetica",
-  size: 10pt,
+  font: "Times New Roman",
+  size: 9pt,
   fill: rgb("#1f2328"),
   weight: 400,
 )
@@ -15,6 +15,7 @@
   leading: 1.15em,
   spacing: 2.65em,
   linebreaks: "optimized",
+  justify: true,
 )
 
 // GitHub-style Links with custom underline
