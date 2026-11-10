@@ -61,9 +61,11 @@
     }
   ],
   "feedbackSurveyRate": 0,
-  "effortLevel": "medium",
+  "effortLevel": "high",
   "plansDirectory": ".plans",
   "theme": "auto",
   "showTurnDuration": true,
-  "parallelTasksCount": 3
+  "parallelTasksCount": 3,
+  "agentPushNotifEnabled": true,
+  "model": "opus"
 }

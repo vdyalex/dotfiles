@@ -80,7 +80,7 @@
   "editor.wrapOnEscapedLineFeeds": true,
   "explorer.compactFolders": false,
   "explorer.confirmDelete": false,
-  "extensions.autoUpdate": "onlyEnabledExtensions",
+  "extensions.autoUpdate": "on",
   "files.defaultLanguage": "markdown",
   "files.eol": "\n",
   "files.exclude": {

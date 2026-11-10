@@ -1,13 +1,11 @@
 # Plugin manager for zsh, inspired by antigen and antibody
 brew "antidote"
 # Cryptography and SSL/TLS Toolkit
-brew "openssl@3"
+brew "openssl@3", link: true
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Manage your dotfiles across multiple diverse machines, securely
 brew "chezmoi"
-# Utility to configure multi-display resolutions and arrangements
-brew "displayplacer"
 # Modern, maintained replacement for ls
 brew "eza"
 # Simple, fast and user-friendly alternative to find
@@ -16,6 +14,8 @@ brew "fd"
 brew "fnm"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# Interpreter for PostScript and PDF
+brew "ghostscript"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
 # GNU multiple precision arithmetic library
@@ -26,8 +26,10 @@ brew "readline"
 brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
-# Improved top (interactive process viewer)
-brew "htop"
+# Tools and libraries to manipulate images in select formats
+brew "imagemagick"
+# Port scanning utility for large networks
+brew "nmap"
 # Create, run, and share large language models (LLMs)
 brew "ollama"
 # Swiss-army knife of markup format conversion
@@ -38,8 +40,8 @@ brew "typst"
 brew "wget"
 # Why is this running?
 brew "witr"
-# Terminal-based AI coding assistant
-cask "claude-code"
+# Command-line interface for 1Password
+cask "1password-cli"
 # Open-source code editor
 cask "visual-studio-code"
 vscode "adpyke.codesnap"
@@ -75,7 +77,6 @@ vscode "github.remotehub"
 vscode "github.vscode-github-actions"
 vscode "gitlab.gitlab-workflow"
 vscode "golang.go"
-vscode "google.geminicodeassist"
 vscode "graphql.vscode-graphql"
 vscode "graphql.vscode-graphql-syntax"
 vscode "gruntfuggly.todo-tree"
@@ -89,8 +90,9 @@ vscode "jeff-hykin.better-dockerfile-syntax"
 vscode "jeff-hykin.better-shellscript-syntax"
 vscode "jock.svg"
 vscode "juanblanco.solidity"
-vscode "kaleidoscope-app.vscode-ksdiff"
 vscode "laravel.vscode-laravel"
+vscode "leonidasiiv.google-sheets-equation-syntax-hightlighter"
+vscode "llvm-vs-code-extensions.lldb-dap"
 vscode "lmcarreiro.vscode-smart-column-indenter"
 vscode "mads-hartmann.bash-ide-vscode"
 vscode "mariano-g.plist-editor"
@@ -116,7 +118,6 @@ vscode "ms-vscode.test-adapter-converter"
 vscode "myriad-dreamin.tinymist"
 vscode "neilbrayfield.php-docblocker"
 vscode "open-southeners.laravel-pint"
-vscode "openai.chatgpt"
 vscode "orta.vscode-jest"
 vscode "quicktype.quicktype"
 vscode "redhat.vscode-xml"
@@ -128,6 +129,7 @@ vscode "searking.preview-vscode"
 vscode "shanoor.vscode-nginx"
 vscode "shufo.vscode-blade-formatter"
 vscode "steoates.autoimport"
+vscode "swiftlang.swift-vscode"
 vscode "tamasfe.even-better-toml"
 vscode "technosophos.vscode-make"
 vscode "wayou.vscode-todo-highlight"
