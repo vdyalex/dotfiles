@@ -1,0 +1,45 @@
+{{- $private_key := onepasswordRead "op://Personal/SSH/private_key" | trim -}}
+{{- $username := onepasswordRead "op://Personal/Identity/Internet Details/Username" | trim -}}
+{{- $key := sha256sum (print $private_key $username) -}}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>phrase</key>
+		<string>{{ decryptAES $key "OZ8lJj/2MAsAFPTZBqatn5kFxiD+FjLSX/L4hypMCWcD2eCSOAARZ9WJp7rYlJ1u" }}</string>
+		<key>shortcut</key>
+		<string>{{ decryptAES $key "6sTm93lv3u+UV7+c39P039D1/FRU7tIq2uxShtSElEk=" }}</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>{{ decryptAES $key "Ig1i+0Ju5r0nRN5ukT+tMquEHqVnkJqhCfAcZxgl5+fLa18Rpu8GTvMZWoM/LC8F" }}</string>
+		<key>shortcut</key>
+		<string>{{ decryptAES $key "JtCZt+Vi/ehH/sA+PlrNB6kxTGC71lfvMJOlRvTSLv4=" }}</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>{{ decryptAES $key "A6tHossJjI8dR/Ob+yey6P4MD4eqXXapw7XOpM1xkTznl+oxlWQvUHBo/SDTaeNf" }}</string>
+		<key>shortcut</key>
+		<string>{{ decryptAES $key "Q7SmuCwDvb1TqpwHJqoy3XKWWVdiYQW4ODUrVPHfmTg=" }}</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>{{ decryptAES $key "i7qbZ8hsR92X98LTbBFKoyH7WGSl6/OLmWHTHap2tzc=" }}</string>
+		<key>shortcut</key>
+		<string>{{ decryptAES $key "Uxp23zG1ienCqG4VqqzamMXd5Ea4OGIjpuHFGVBqXyk=" }}</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>{{ decryptAES $key "pVn2oAecfmOS8YTvThiCKRCesXgpFn4Xcs8dylrXaAyj0XVWvTdFRW5g5wuBM/os" }}</string>
+		<key>shortcut</key>
+		<string>{{ decryptAES $key "fhR1SNT2Q91vRv2YcyT/yXp7+Eno4eha9517xTe9uaA=" }}</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>{{ decryptAES $key "wrelP8G0Lq9Ca2WI0cmx7NaLQgVZTnhNiNkN9pgKf1h0zp4/Tc0otH0Vpuqp93IA" }}</string>
+		<key>shortcut</key>
+		<string>{{ decryptAES $key "KgndFYCkmW+jfqINDOTXAPy+aH4vnBzLrPl/+oQQSsM=" }}</string>
+	</dict>
+</array>
+</plist>

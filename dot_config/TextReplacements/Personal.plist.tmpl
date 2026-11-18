@@ -1,0 +1,77 @@
+{{- $username := onepasswordRead "op://Personal/Identity/Internet Details/Username" | trim -}}
+{{- $first_name := onepasswordRead "op://Personal/Identity/First Name" -}}
+{{- $last_name := onepasswordRead "op://Personal/Identity/Last Name" -}}
+{{- $github := onepasswordRead "op://Personal/Identity/GitHub" -}}
+{{- $linkedin := onepasswordRead "op://Personal/Identity/LinkedIn" -}}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>phrase</key>
+		<string>{{ $first_name }} {{ $last_name }}</string>
+		<key>shortcut</key>
+		<string>:me</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>{{ $first_name }} {{ $last_name }}</string>
+		<key>shortcut</key>
+		<string>:name</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>{{ $username }}</string>
+		<key>shortcut</key>
+		<string>:id</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>{{ $username }}</string>
+		<key>shortcut</key>
+		<string>:u</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>{{ $username }}</string>
+		<key>shortcut</key>
+		<string>:user</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>https://cal.com/{{ $username }}</string>
+		<key>shortcut</key>
+		<string>:cal</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>https://cal.com/{{ $username }}</string>
+		<key>shortcut</key>
+		<string>:calendar</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>{{ $github }}</string>
+		<key>shortcut</key>
+		<string>:gh</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>{{ $github }}</string>
+		<key>shortcut</key>
+		<string>:github</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>{{ $linkedin }}</string>
+		<key>shortcut</key>
+		<string>:li</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>{{ $linkedin }}</string>
+		<key>shortcut</key>
+		<string>:linkedin</string>
+	</dict>
+</array>
+</plist>

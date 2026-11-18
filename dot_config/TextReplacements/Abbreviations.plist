@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>phrase</key>
+		<string>away from keyboard</string>
+		<key>shortcut</key>
+		<string>afk</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>ASD-STE100</string>
+		<key>shortcut</key>
+		<string>asd</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>ASD-STE100</string>
+		<key>shortcut</key>
+		<string>ste</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>because</string>
+		<key>shortcut</key>
+		<string>bc</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>because</string>
+		<key>shortcut</key>
+		<string>coz</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>because of</string>
+		<key>shortcut</key>
+		<string>bco</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>because of that</string>
+		<key>shortcut</key>
+		<string>bcot</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>be right back</string>
+		<key>shortcut</key>
+		<string>brb</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>good morning</string>
+		<key>shortcut</key>
+		<string>gm</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>good night</string>
+		<key>shortcut</key>
+		<string>gn</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>hahahaha</string>
+		<key>shortcut</key>
+		<string>hah</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>how about you</string>
+		<key>shortcut</key>
+		<string>hbu</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>how are you</string>
+		<key>shortcut</key>
+		<string>hru</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>I don’t care</string>
+		<key>shortcut</key>
+		<string>idc</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>I’m doing good</string>
+		<key>shortcut</key>
+		<string>idg</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>I don't know</string>
+		<key>shortcut</key>
+		<string>idk</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Instagram</string>
+		<key>shortcut</key>
+		<string>ig</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>in my humble opinion</string>
+		<key>shortcut</key>
+		<string>imho</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Instagram</string>
+		<key>shortcut</key>
+		<string>insta</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>in my opinion</string>
+		<key>shortcut</key>
+		<string>imo</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Instagram</string>
+		<key>shortcut</key>
+		<string>insta</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>never mind</string>
+		<key>shortcut</key>
+		<string>nvm</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>of course</string>
+		<key>shortcut</key>
+		<string>ofc</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>on my way</string>
+		<key>shortcut</key>
+		<string>omw</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>really</string>
+		<key>shortcut</key>
+		<string>rly</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>something</string>
+		<key>shortcut</key>
+		<string>sth</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>Telegram</string>
+		<key>shortcut</key>
+		<string>tg</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>talk to you later</string>
+		<key>shortcut</key>
+		<string>ttyl</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>WhatsApp</string>
+		<key>shortcut</key>
+		<string>wa</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>what about you</string>
+		<key>shortcut</key>
+		<string>wbu</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>what do you mean</string>
+		<key>shortcut</key>
+		<string>wdym</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>WhatsApp</string>
+		<key>shortcut</key>
+		<string>whatapp</string>
+	</dict>
+	<dict>
+		<key>phrase</key>
+		<string>WhatsApp</string>
+		<key>shortcut</key>
+		<string>whatsapp</string>
+	</dict>
+</array>
+</plist>
